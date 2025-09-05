@@ -1,5 +1,5 @@
-﻿using System;
-using System.Security.Cryptography.X509Certificates;
+﻿
+using System;
 
 namespace _01_DeclaracaoClasse
 {
@@ -32,7 +32,9 @@ namespace _01_DeclaracaoClasse
             obj5.Base = 12.75;
             obj5.ImprimeArea();
 
-            conta contaGustavo = new conta();
+
+
+            Conta contaGustavo = new Conta();
             contaGustavo.banco = 237;
             contaGustavo.agencia = "002-7";
             contaGustavo.numero = "99520-7";
@@ -42,8 +44,20 @@ namespace _01_DeclaracaoClasse
             contaGustavo.Depositar(1050.00);
             Console.WriteLine($"Saldo Atual: {contaGustavo.ConsultaSaldo()}");
 
-            contaGustavo.sacar(200.00);
+            contaGustavo.Sacar(200.00);
             Console.WriteLine($"Saldo atual: {contaGustavo.ConsultaSaldo()}");
+
+
+
+            Aluno alunoGustavo = new Aluno();
+            alunoGustavo.codigo = 1;
+            alunoGustavo.nome = "Gustavo Santos de Souza";
+            alunoGustavo.LancaNota(1, 8.6);
+            alunoGustavo.LancaNota(2, 9.0);
+            alunoGustavo.LancaNota(3, 9.5);
+            alunoGustavo.LancaNota(4, 10.0);
+
+            Console.WriteLine($"Aluno {alunoGustavo.nome} {alunoGustavo.Mencao()} com média de {alunoGustavo.CalculaMedia():00}");
         }
     }
 
@@ -53,8 +67,7 @@ namespace _01_DeclaracaoClasse
 
         public int CalculaArea()
         {
-            int area = Lado * Lado;
-            return area;
+            return Lado * Lado;
         }
 
         public void ImprimeArea()
@@ -84,7 +97,7 @@ namespace _01_DeclaracaoClasse
 
         public double CalculaArea()
         {
-            return Math.Pow(Raio, 2) * Math.PI;
+            return Math.PI * Math.Pow(Raio, 2);
         }
 
         public void ImprimeArea()
@@ -108,8 +121,7 @@ namespace _01_DeclaracaoClasse
         }
     }
 
-    // Classe conta deve estar fora de Triangulo
-    public class conta
+    public class Conta
     {
         public int banco;
         public string agencia;
@@ -119,54 +131,52 @@ namespace _01_DeclaracaoClasse
 
         public void Depositar(double valor)
         {
-            saldo = saldo + valor;
+            saldo += valor;
         }
 
-        public void sacar(double valor)
+        public void Sacar(double valor)
         {
             if (saldo >= valor)
             {
-                saldo = saldo - valor;
+                saldo -= valor;
             }
-            // Fechando o método sacar corretamente
         }
-
-
-
 
         public double ConsultaSaldo()
         {
             return saldo;
         }
+    }
 
-        public class aluno
+    public class Aluno
+    {
+        public int codigo;
+        public string nome;
+        public double[] notas = new double[4];
+
+        public void LancaNota(int trimestre, double nota)
         {
-            public int codigo;
-            public string nome;
-            public double[] notas = new double[4];
+            notas[trimestre - 1] = nota;
+        }
 
-            public void LancaNota(int trimestre, double nota)
+        public double CalculaMedia()
+        {
+            double media = 0;
+            foreach (double nota in notas)
             {
-                notas[trimestre - 1] = nota;  // corrigido o "=" aqui
+                media += nota;
             }
+            return media / 4.0;
+        }
 
-            public double CalculaMedia()
-            {
-                double media = 0;
-                foreach (double nota in notas)
-                {
-                    media += nota;
-                }
-                return media / 4.0;
-            }  // fechando CalculaMedia aqui
+        public string Mencao()
+        {
+            //if (CalculaMedia() >= 5.0)
+            //    return "Aprovado";
+            //else
+            //    return "Reprovado";
 
-            public string mencao()
-            {
-                if (CalculaMedia() >= 5.0)
-                    return "aprovado";
-                else
-                    return "reprovado";
-            }
+            return (CalculaMedia() >= 5.0) ? "Aprovado" : "Reprovado"; //? significa o então e o : (dois pontos) senão
         }
     }
 }
