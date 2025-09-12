@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _03_Propriedades
+namespace _04PropriedadesAtenet8
 {
     internal class Program
     {
@@ -12,7 +12,7 @@ namespace _03_Propriedades
         {
             //Conta conta = new Conta();
             Conta conta = new Conta("999-88");
-            conta.setNome("Gustavo Santos de Souza");//
+            conta.nome = "Gustavo Santos de Souza";//
             //conta.nome = "Gustavo Santos de Souza";
 
             //Não é possivel atribuir p valor em um atributo privado 
@@ -21,7 +21,7 @@ namespace _03_Propriedades
 
             conta.Depositar(-1000.00m);
             // utilizando o metodo acessador
-            conta.setSaldo(1000.00m);
+            conta.Saldo = 1000.00m;
             // Console.WriteLine($"Saldo atual : {conta.getSaldo():c2}");
             conta.ImprimirSaldo();
 
@@ -46,7 +46,8 @@ namespace _03_Propriedades
                 }
                 else if (operacao.ToUpper() == "E")
                 {
-                    Console.WriteLine($"Conta {conta.getNumero()} Nome: {conta.getNome()} Saldo:{conta.getSaldo()}:c2");
+                    // Corrigido fechamento de chaves e parênteses
+                    Console.WriteLine($"Conta {conta.Numero} Nome: {conta.nome} Saldo: {conta.Saldo:c2}");
                     break;
                 }
                 else
@@ -59,6 +60,9 @@ namespace _03_Propriedades
         public class Conta
         {
             private string numero;
+            public string Numero { get; }
+          
+
             public string nome;
 
             public Conta(string numero)
@@ -67,31 +71,41 @@ namespace _03_Propriedades
             }
             private decimal saldo;
 
+            //declaraçao da propriedade até a versão 8 do .NET
+            public decimal Saldo
+            {
+                get { return saldo; }
+                set
+                {
+                    this.Depositar(value);
+                }
+            }
+
             // métodos acessadores
-            public decimal getSaldo() 
-            {
-                return saldo;
-            }
+            //public decimal getSaldo() 
+            //{
+            //    return saldo;
+            //}
 
-            public void setSaldo(decimal saldo)
-            {
-                this.Depositar(saldo);
-            }
-            public string getNumero()
-            {
-                return numero;
-            }
+            //public void setSaldo(decimal saldo)
+            //{
+            //    this.Depositar(saldo);
+            //}
+            //public string getNumero()
+            //{
+            //    return numero;
+            //}
 
-            public string getNome()//
+            //public string getNome()//
 
-            {
-                return nome;
-            }
+            //{
+            //    return nome;
+            //}
 
-            public void setNome(string nome)
-            {
-                this.nome = nome;//
-            }
+            //public void setNome(string nome)
+            //{
+            //    this.nome = nome;//
+            //}
 
             public void Depositar(decimal valor)
             {
