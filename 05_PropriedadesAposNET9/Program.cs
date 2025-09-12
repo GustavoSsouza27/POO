@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Runtime.Remoting.Messaging;
 
-namespace _04PropriedadesAtenet8
+namespace _05_PropriedadesAposNET9
 {
     internal class Program
     {
@@ -53,8 +54,8 @@ namespace _04PropriedadesAtenet8
 
         public class Conta
         {
-            private string numero;
-            public string Numero { get { return numero; } }
+            //private string numero;
+            public string Numero { get; }
 
             public string nome;
 
@@ -65,7 +66,7 @@ namespace _04PropriedadesAtenet8
             // declaração da propriedade até a versão 8 do .NET
             public decimal Saldo
             {
-                get { return saldo; }
+                get{return saldo;}
                 set
                 {
                     this.Depositar(value);
@@ -75,7 +76,7 @@ namespace _04PropriedadesAtenet8
             // Construtor para inicializar o número da conta
             public Conta(string numero)
             {
-                this.numero = numero;
+                this.Numero = numero;
             }
 
             public void Depositar(decimal valor)
