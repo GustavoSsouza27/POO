@@ -13,31 +13,31 @@ namespace _18_ValidaCPF
 
 
         {
-            while (true)
+            while (true) 
             {
                 Console.Write("Digite o seu CPF :)  : ");
                 string entrada = Console.ReadLine();
 
-                IDocumento documento = new CPF(entrada);
+                IDocumento documento = new CPF(Console.ReadLine());
 
                 if (documento.Validar())
                 {
-                    Console.ForegroundColor = ConsoleColor.Green;
+                    
                     Console.WriteLine($"CPF {documento.numero} é válido!");
-                    Console.ResetColor();
+                   
 
                     break;
 
                 }
                 else
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
+                   
                     Console.WriteLine($"CPF {documento.numero} é inválido! Tente Novamente. \n");
 
-                    Console.ResetColor();
+                    
                 }
 
-                Console.ResetColor();
+               
                 Console.ReadKey();
             }
 
